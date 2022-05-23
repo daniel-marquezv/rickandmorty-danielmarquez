@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from "react";
 import {
-  SafeAreaView,
   ScrollView,
-  StatusBar,
   StyleSheet,
   Text,
   Image,
   Button,
   ImageBackground,
-  useColorScheme,
   View,
   TextInput,
 } from "react-native";
@@ -42,60 +39,63 @@ const FilterByName = () => {
 
   return (
     <View>
-    <ImageBackground
-      source={{
-        uri: "https://wallpapersflix.com/es/wp-content/uploads/2020/06/Fondo-De-Pantalla-Rick-Y-Morty.jpg",
-      }}
-      style={{ height: '100%' }}
-      // resizeMode='repeat'
-    >
-<ScrollView>
-      <View>
-        <TextInput
-          style={styles.input}
-          onChangeText={setFilterName}
-          value={filterName}
-        />
+      <ImageBackground
+        source={{
+          uri: "https://wallpapersflix.com/es/wp-content/uploads/2020/06/Fondo-De-Pantalla-Rick-Y-Morty.jpg",
+        }}
+        style={{ height: "100%" }}
+        // resizeMode='repeat'
+      >
+        <ScrollView>
+          <View>
+            <TextInput
+              style={styles.input}
+              onChangeText={setFilterName}
+              value={filterName}
+            />
 
-        <Button
-          onPress={obtenerPersonaje}
-          title="Buscar"
-          color="#008f39"
-          accessibilityLabel="Aprende mas sobre este personaje"
-        />
-      </View>
-      <View>
-        
-          {existe ? (
-            personajeEncontrado.map((personaje, index) => (
-              <View key={index} style={{ flexDirection: "row", marginTop: 5 }}>
-                <View>
-                  <Image
-                    source={{ uri: personaje.image }}
-                    style={styles.image}
-                  />
+            <Button
+              onPress={obtenerPersonaje}
+              title="Buscar"
+              color="#008f39"
+              accessibilityLabel="Aprende mas sobre este personaje"
+            />
+          </View>
+          <View>
+            {existe ? (
+              personajeEncontrado.map((personaje, index) => (
+                <View
+                  key={index}
+                  style={{ flexDirection: "row", marginTop: 5 }}
+                >
+                  <View>
+                    <Image
+                      source={{ uri: personaje.image }}
+                      style={styles.image}
+                    />
+                  </View>
+                  <View style={{ marginLeft: 2 }}>
+                    <Text style={styles.baseText}>
+                      Nombre: {personaje.name}
+                    </Text>
+                    <Text style={styles.baseText}>
+                      Estatus: {personaje.status}
+                    </Text>
+                    <Text style={styles.baseText}>
+                      Especie: {personaje.species}
+                    </Text>
+                    <Text style={styles.baseText}>
+                      Genero: {personaje.gender}
+                    </Text>
+                  </View>
                 </View>
-                <View style={{ marginLeft: 5 }}>
-                  <Text style={styles.baseText}>Nombre: {personaje.name}</Text>
-                  <Text style={styles.baseText}>
-                    Estatus: {personaje.status}
-                  </Text>
-                  <Text style={styles.baseText}>
-                    Especie: {personaje.species}
-                  </Text>
-                  <Text style={styles.baseText}>
-                    Genero: {personaje.gender}
-                  </Text>
-                </View>
-              </View>
-            ))
-          ) : (
-            <Text style={styles.baseText}>no se encontro el personaje</Text>
-          )}
-        
-      </View>
-      </ScrollView>
-    </ImageBackground>
+              ))
+            ) : (
+              <Text style={styles.baseText}>No se encontro el personaje</Text>
+            )}
+          </View>
+        </ScrollView>
+      </ImageBackground>
     </View>
   );
 };
