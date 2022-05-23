@@ -50,7 +50,7 @@ const Home = ({ navigation }) => {
         source={{
           uri: "https://instruccionespara.com/wp-content/uploads/rick-y-morty-artwork_3840x2400_xtrafondos.com_-1024x640.jpg",
         }}
-        style={{ width: 450 }}
+        // style={{ width: 450 }}
       >
         <View >
         <Button
@@ -99,7 +99,7 @@ const Home = ({ navigation }) => {
               </Text>
               <Image
                 source={{ uri: personaje.image }}
-                style={{ width: 250, height: 250 }}
+                style={styles.image}
               />
             </View>
             // <Separator />
@@ -119,6 +119,14 @@ const styles = StyleSheet.create({
   titleText: {
     fontSize: 20,
     fontWeight: "bold",
+  },
+  image: {
+    width: 200,
+    height: 200,
+    // borderRadius: 150 / 2,
+    overflow: "hidden",
+    borderWidth: 3,
+    borderColor: "black",
   },
 });
 

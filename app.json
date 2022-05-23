@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "listarickandmorty",
-    "slug": "listarickandmorty",
+    "name": "rickandmortydm",
+    "slug": "rickandmortydm",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -21,7 +21,7 @@
       "supportsTablet": true
     },
     "android": {
-      "package": "com.escaleno.listarickandmorty",
+      "package": "com.escaleno.rickandmortydm",
       "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",

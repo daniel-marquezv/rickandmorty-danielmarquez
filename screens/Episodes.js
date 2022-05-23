@@ -34,13 +34,14 @@ const Episodes = ({ navigation }) => {
   }, []);
 
   return (
-    <ScrollView>
+    
       <ImageBackground
         source={{
           uri: "https://wallpapersflix.com/es/wp-content/uploads/2020/06/Fondo-De-Pantalla-Rick-Y-Morty.jpg",
         }}
-        style={{ width: 450, height: 700 }}
+        style={{  height: '100%' }}
       >
+        <ScrollView>
         <Text style={styles.baseText}>Primer Episodio: </Text>
         <Text style={styles.titleText}>{primerEpisodio.episode}</Text>
         <Text style={styles.titleText}>{primerEpisodio.name}</Text>
@@ -48,8 +49,9 @@ const Episodes = ({ navigation }) => {
         <Text style={styles.baseText}>Ultimo Episodio: </Text>
         <Text style={styles.titleText}>{ultimoEpisodio.episode}</Text>
         <Text style={styles.titleText}>{ultimoEpisodio.name}</Text>
+        </ScrollView>
       </ImageBackground>
-    </ScrollView>
+    // </ScrollView>
   );
 };
 
