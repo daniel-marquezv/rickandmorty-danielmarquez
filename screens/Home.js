@@ -20,76 +20,56 @@ import {
 const Home = ({ navigation }) => {
   const [personajes, setPersonajes] = useState([]);
   const [cantidadPersonajes, setCantidadPersonajes] = useState(0);
+  const [nextPage, setNextPage] = useState(null);
+  const [prevPage, setPrevPage] = useState(null);
+  const [numberPage, setNumberPage] = useState(0);
+  const [actualPage, setActualPage] = useState(1);
   useEffect(() => {
     console.log("**** get de personajes");
+    listaPersonajes("https://rickandmortyapi.com/api/character");
+  }, []);
 
-    fetch("https://rickandmortyapi.com/api/character")
+  const listaPersonajes = (url) => {
+    fetch(url)
       .then((response) => response.json())
       .then((data) => {
         setPersonajes(data.results.map((personaje) => personaje));
         setCantidadPersonajes(data.info.count);
+        setNextPage(data.info.next);
+        setPrevPage(data.info.prev);
+        setNumberPage(data.info.pages);
+        if (url.includes("page")) {
+          setActualPage(url.split("page=")[1]);
+        }
       });
-    console.log("fetchterminado");
-  }, []);
+  };
 
   return (
-    <ScrollView>
-      <ImageBackground
-        source={{
-          uri: "https://instruccionespara.com/wp-content/uploads/rick-y-morty-artwork_3840x2400_xtrafondos.com_-1024x640.jpg",
-        }}
-        style={{ height: "100%" }}
-      >
-        <View>
-          <Button
-            //
-            onPress={() => {
-              const random =
-                personajes[Math.floor(Math.random() * personajes.length)];
-              navigation.navigate("Personaje Aleatorio", {
-                randomCharacter: random,
-              });
-            }}
-            title="Detalles de un personaje aleatorio"
-            color="#008f39"
-            accessibilityLabel="Aprende mas sobre este personaje"
-          />
-        </View>
-        <View
-          style={{ borderWidth: 1, borderColor: "#77DD77", borderRadius: 50 }}
-        >
-          <Button
-            onPress={() => {
-              navigation.navigate("Episodios");
-            }}
-            title="Primer y ultimo episodio"
-            color="#008f39"
-            accessibilityLabel="Aprende mas sobre este episodio"
-          />
-        </View>
+    <ScrollView style={{ backgroundColor: "#0b8bb6" }}>
+      <View style={styles.fixToText}>
         <Button
-          onPress={() => {
-            navigation.navigate("Filtrar por nombre");
-          }}
-          title="filtrar por nombre"
-          color="#008f39"
-          accessibilityLabel="Aprende mas sobre este episodio"
+          title="Atras"
+          disabled={prevPage == null}
+          onPress={() => listaPersonajes(prevPage)}
         />
-        <Text style={styles.baseText}>
-          Cantidad total de personajes de Rick and Morty:{" "}
-          <Text style={styles.titleText}>{cantidadPersonajes}</Text>
+        <Text style={styles.pageNumber}>
+          {actualPage}/{numberPage}
         </Text>
-        <Text style={styles.baseText}> Personajes de rick and morty</Text>
-        {personajes.map((personaje, index) => (
-          <View key={index}>
-            <Text style={styles.baseText}>
-              {" "}
-              {index + 1}.- {personaje.name}{" "}
-            </Text>
-            <Image source={{ uri: personaje.image }} style={styles.image} />
-          </View>
-        ))}
-      </ImageBackground>
+        <Button title="Siguiente" onPress={() => listaPersonajes(nextPage)} />
+      </View>
+      <Text style={styles.titleText}> Personajes rick and morty</Text>
+      <Text style={styles.baseText}>
+        Total: <Text style={styles.baseText}>{cantidadPersonajes}</Text>
+      </Text>
+      {personajes.map((personaje, index) => (
+        <View key={index}>
+          <Text style={styles.baseText}>
+            {" "}
+            {personaje.id}.- {personaje.name}{" "}
+          </Text>
+          <Image source={{ uri: personaje.image }} style={styles.image} />
+        </View>
+      ))}
     </ScrollView>
   );
 };
@@ -99,10 +79,13 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginTop: 5,
     fontWeight: "bold",
+    textAlign: "center",
   },
   titleText: {
-    fontSize: 20,
+    fontSize: 22,
     fontWeight: "bold",
+    textAlign: "center",
+    marginTop: 5,
   },
   image: {
     width: 200,
@@ -111,6 +94,17 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     borderWidth: 3,
     borderColor: "black",
+    alignSelf: "center",
+  },
+  fixToText: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    marginTop: 5,
+  },
+  pageNumber: {
+    fontSize: 18,
+    fontWeight: "bold",
+    marginTop: 5,
   },
 });
 

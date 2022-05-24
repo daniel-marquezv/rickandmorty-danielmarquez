@@ -18,7 +18,8 @@
       "assets/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.escaleno.rickandmortydm"
     },
     "android": {
       "package": "com.escaleno.rickandmortydm",

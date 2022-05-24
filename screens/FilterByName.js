@@ -44,7 +44,6 @@ const FilterByName = () => {
           uri: "https://wallpapersflix.com/es/wp-content/uploads/2020/06/Fondo-De-Pantalla-Rick-Y-Morty.jpg",
         }}
         style={{ height: "100%" }}
-        // resizeMode='repeat'
       >
         <ScrollView>
           <View>
@@ -52,12 +51,14 @@ const FilterByName = () => {
               style={styles.input}
               onChangeText={setFilterName}
               value={filterName}
+              placeholder="Ingrese nombre"
+              placeholderTextColor="black"
             />
 
             <Button
               onPress={obtenerPersonaje}
               title="Buscar"
-              color="#008f39"
+              color="#FF4000"
               accessibilityLabel="Aprende mas sobre este personaje"
             />
           </View>
@@ -66,7 +67,11 @@ const FilterByName = () => {
               personajeEncontrado.map((personaje, index) => (
                 <View
                   key={index}
-                  style={{ flexDirection: "row", marginTop: 5 }}
+                  style={{
+                    flexDirection: "row",
+                    marginTop: 15,
+                    justifyContent: "space-around",
+                  }}
                 >
                   <View>
                     <Image
@@ -74,7 +79,7 @@ const FilterByName = () => {
                       style={styles.image}
                     />
                   </View>
-                  <View style={{ marginLeft: 2 }}>
+                  <View>
                     <Text style={styles.baseText}>
                       Nombre: {personaje.name}
                     </Text>
@@ -116,7 +121,7 @@ const styles = StyleSheet.create({
     borderColor: "black",
   },
   baseText: {
-    fontSize: 15,
+    fontSize: 18,
     marginTop: 5,
     fontWeight: "bold",
   },

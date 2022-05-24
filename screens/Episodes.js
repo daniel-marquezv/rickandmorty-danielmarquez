@@ -1,10 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  ScrollView,
-  StyleSheet,
-  Text,
-  ImageBackground,
-} from "react-native";
+import { ScrollView, StyleSheet, Text, ImageBackground } from "react-native";
 
 const Episodes = ({ navigation }) => {
   const [primerEpisodio, setPrimerEpisodio] = useState({});
@@ -18,9 +13,7 @@ const Episodes = ({ navigation }) => {
         if (data.results.length > 0) {
           console.log(data.results[0]);
           setPrimerEpisodio(data.results[0]);
-          
         }
-
 
         fetch(`https://rickandmortyapi.com/api/episode?page=${data.info.pages}`)
           .then((response) => response.json())
@@ -51,7 +44,6 @@ const Episodes = ({ navigation }) => {
         <Text style={styles.titleText}>{ultimoEpisodio.name}</Text>
       </ScrollView>
     </ImageBackground>
-    // </ScrollView>
   );
 };
 
@@ -60,9 +52,11 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginTop: 5,
     fontWeight: "bold",
+    textAlign: "center",
   },
   titleText: {
     fontSize: 20,
+    textAlign: "center",
   },
 });
 export default Episodes;

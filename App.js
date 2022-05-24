@@ -1,24 +1,25 @@
+import "react-native-gesture-handler";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import Home from "./screens/Home";
 import FilterByName from "./screens/FilterByName";
 import CharacterDetail from "./screens/CharacterDetail";
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Episodes from "./screens/Episodes";
+import { createDrawerNavigator } from "@react-navigation/drawer";
 
-
-const Stack = createNativeStackNavigator();
+const Drawer = createDrawerNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Inicio" component={Home} />
-        <Stack.Screen name="Personaje Aleatorio" component={CharacterDetail} />
-        <Stack.Screen name="Episodios" component={Episodes}/>
-        <Stack.Screen name="Filtrar por nombre" component={FilterByName}/>
-      </Stack.Navigator>
+      <Drawer.Navigator>
+        <Drawer.Screen name="Inicio" component={Home} />
+        <Drawer.Screen name="Personaje Aleatorio" component={CharacterDetail} />
+        <Drawer.Screen name="Episodios" component={Episodes} />
+        <Drawer.Screen name="Filtrar por nombre" component={FilterByName} />
+      </Drawer.Navigator>
     </NavigationContainer>
   );
 }
@@ -31,4 +32,3 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 });
-     
