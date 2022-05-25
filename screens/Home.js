@@ -15,6 +15,7 @@ import {
   ImageBackground,
   Button,
   View,
+  TouchableHighlight,
 } from "react-native";
 
 const Home = ({ navigation }) => {
@@ -45,31 +46,53 @@ const Home = ({ navigation }) => {
   };
 
   return (
-    <ScrollView style={{ backgroundColor: "#0b8bb6" }}>
-      <View style={styles.fixToText}>
-        <Button
-          title="Atras"
-          disabled={prevPage == null}
-          onPress={() => listaPersonajes(prevPage)}
-        />
-        <Text style={styles.pageNumber}>
-          {actualPage}/{numberPage}
-        </Text>
-        <Button title="Siguiente" onPress={() => listaPersonajes(nextPage)} />
-      </View>
-      <Text style={styles.titleText}> Personajes rick and morty</Text>
-      <Text style={styles.baseText}>
-        Total: <Text style={styles.baseText}>{cantidadPersonajes}</Text>
-      </Text>
-      {personajes.map((personaje, index) => (
-        <View key={index}>
-          <Text style={styles.baseText}>
-            {" "}
-            {personaje.id}.- {personaje.name}{" "}
+    <ScrollView>
+      <ImageBackground
+        source={{
+          uri: "https://www.xtrafondos.com/wallpapers/vertical/degradado-difuminado-verde-7936.jpg",
+        }}
+        style={{ height: "100%" }}
+      >
+        <View style={styles.fixToText}>
+          <Button
+            title="Atras"
+            disabled={prevPage == null}
+            onPress={() => listaPersonajes(prevPage)}
+            color="#FF7F00"
+          />
+          <Text style={styles.pageNumber}>
+            {actualPage}/{numberPage}
           </Text>
-          <Image source={{ uri: personaje.image }} style={styles.image} />
+          <Button
+            title="Siguiente"
+            onPress={() => listaPersonajes(nextPage)}
+            color="#FF7F00"
+          />
         </View>
-      ))}
+        <Text style={styles.titleText}> Personajes Rick and Morty</Text>
+        <Text style={styles.baseText}>
+          Total: <Text style={styles.baseText}>{cantidadPersonajes}</Text>
+        </Text>
+        {personajes.map((personaje, index) => (
+          <View key={index}>
+            <Text style={styles.baseText}>
+              {" "}
+              {personaje.id}.- {personaje.name}{" "}
+            </Text>
+            <TouchableHighlight
+              underlayColor={"#66d5c2"}
+              onPress={() =>
+                navigation.navigate("Personaje Aleatorio", {
+                  characterSelected: personaje.id,
+                  title: "Personaje seleccionado",
+                })
+              }
+            >
+              <Image source={{ uri: personaje.image }} style={styles.image} />
+            </TouchableHighlight>
+          </View>
+        ))}
+      </ImageBackground>
     </ScrollView>
   );
 };
@@ -77,7 +100,7 @@ const Home = ({ navigation }) => {
 const styles = StyleSheet.create({
   baseText: {
     fontSize: 20,
-    marginTop: 5,
+    marginTop: 15,
     fontWeight: "bold",
     textAlign: "center",
   },

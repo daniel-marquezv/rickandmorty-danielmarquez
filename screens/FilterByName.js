@@ -54,7 +54,6 @@ const FilterByName = () => {
               placeholder="Ingrese nombre"
               placeholderTextColor="black"
             />
-
             <Button
               onPress={obtenerPersonaje}
               title="Buscar"

@@ -1,30 +1,63 @@
 import React, { useEffect, useState } from "react";
-import { Text, View, Image, StyleSheet, ImageBackground } from "react-native";
+import {
+  Text,
+  View,
+  Image,
+  StyleSheet,
+  ImageBackground,
+  Button,
+} from "react-native";
 import { useIsFocused } from "@react-navigation/native";
+import { getDrawerStatusFromState } from "@react-navigation/drawer";
 
 const CharacterDetail = ({ navigation, route }) => {
-  console.log(route.params);
+  // console.log(route.params);
 
   const [personajeAleatorio, setPersonajeAleatorio] = useState({});
-
   const isFocused = useIsFocused();
+  const [esAleatorio, setEsAleatorio] = useState(false);
+
+  useEffect(() => {}, []);
+
+  const obtenerRandom = () => {
+    fetch("https://rickandmortyapi.com/api/character")
+      .then((response) => response.json())
+      .then((data) => {
+        setEsAleatorio(true);
+        const random = Math.floor(Math.random() * data.info.count);
+        // console.log(random);
+        fetch(`https://rickandmortyapi.com/api/character/${random}`)
+          .then((response) => response.json())
+          .then((data) => {
+            setPersonajeAleatorio(data);
+          });
+      });
+  };
 
   useEffect(() => {
-    if (isFocused) {
-      fetch("https://rickandmortyapi.com/api/character")
+    if (isFocused && !route?.params?.characterSelected) {
+      obtenerRandom();
+    } else {
+      navigation.setOptions({ baseText: "personaje seleccionado" });
+      fetch(
+        `https://rickandmortyapi.com/api/character/${route?.params?.characterSelected}`
+      )
         .then((response) => response.json())
         .then((data) => {
-          const random = Math.floor(Math.random() * data.info.count);
-          console.log(random);
-          fetch(`https://rickandmortyapi.com/api/character/${random}`)
-            .then((response) => response.json())
-            .then((data) => {
-              setPersonajeAleatorio(data);
-            });
+          setPersonajeAleatorio(data);
+          setEsAleatorio(false);
+          navigation.setParams({ characterSelected: null });
         });
     }
-    console.log("desmontado");
+
+    return () => {
+      setPersonajeAleatorio({});
+    };
   }, [isFocused]);
+  console.log(route);
+  // console.log(personajeAleatorio)
+
+  // hacer un fetch mandando id que viene del character selected
 
   const { name, status, species, gender, image } = personajeAleatorio;
 
@@ -41,6 +74,21 @@ const CharacterDetail = ({ navigation, route }) => {
         <Text style={styles.baseText}>Estatus: {status}</Text>
         <Text style={styles.baseText}>Especie: {species}</Text>
         <Text style={styles.baseText}>Genero: {gender}</Text>
+        {esAleatorio && (
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "center",
+              marginTop: 20,
+            }}
+          >
+            <Button
+              title="Generar nuevo personaje"
+              onPress={() => obtenerRandom()}
+              color="#FF4000"
+            />
+          </View>
+        )}
       </ImageBackground>
     </View>
   );
