@@ -2,6 +2,8 @@
 Programa de rick and morty hecho por daniel marquez para la empresa escaleno
 Este proyecto fue hecho en react native y expo por lo cual para ejecutarlo debe haber instalado expo.
 los comandos son:
+### Instalar paquetes:
+npm i
 ### Para instalar expo:
 npm install --global expo-cli 
 ### Para iniciar el proyecto:
